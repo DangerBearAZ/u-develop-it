@@ -12,21 +12,49 @@ app.use(express.json());
 // Connect to database
 const db = mysql.createConnection(
     {
-      host: 'localhost',
-      //  MySQL username,
-      user: 'root',
-      //  MySQL password
-      password: 'Root',
-      database: 'election'
+        host: 'localhost',
+        //  MySQL username,
+        user: 'root',
+        //  MySQL password
+        password: 'Root',
+        database: 'election'
     },
     console.log('Connected to the election database.')
-  );
+);
 
 
-  db.query(`SELECT * FROM candidates`, (err, rows) => {
-      console.log(rows);
-  });
+//this shows entire table in json 
+//   db.query(`SELECT * FROM candidates`, (err, rows) => {
+//       console.log(rows);
+//   });
 
+//GET a single candidate *currently hard coded to 1 will update
+// db.query(`SELECT * FROM candidates WHERE id = 1`, (err,row) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(row);
+// });
+
+//Delete a candidate 
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// });
+
+//Create a candidate
+const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
+              VALUES (?,?,?,?)`;
+const params = [1, 'Ronald', 'Firbank', 1];
+
+db.query(sql, params, (err, result) => {
+    if (err){
+        console.log(err);
+    }
+    console.log(result);
+});
 
 // Below is a good way to test to make sure express is working 
 //should say hello world on localhost:3001
@@ -40,8 +68,8 @@ const db = mysql.createConnection(
 // this is a catch all and needs to be at the end or it over rides all 
 app.use((req, res) => {
     res.status(404).end();
-  });
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-  });
+});
