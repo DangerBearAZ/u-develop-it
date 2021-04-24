@@ -1,12 +1,12 @@
---This will drop/delete the tables every time you run the schema.sql file
+-- This will drop/delete the tables every time you run the schema.sql file
 -- ensuring that you start with a clean slate.
 -- canidates must come first beacuse it is dependant on parties 
 
-DROP TABLE IF EXISTS canidates;
+DROP TABLE IF EXISTS candidates;
 DROP TABLE IF EXISTS parties;
 
---Because candidates relies on the parties table, 
---the parties table MUST be defined first before the candidates table.
+-- Because candidates relies on the parties table, 
+-- the parties table MUST be defined first before the candidates table.
 CREATE TABLE parties (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL,
